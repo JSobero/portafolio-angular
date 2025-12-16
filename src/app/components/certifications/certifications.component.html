@@ -1,0 +1,79 @@
+<section class="w-full relative">
+  
+  <div class="flex items-end gap-4 mb-8">
+    <h3 class="text-2xl font-display font-bold text-white tracking-wide">
+      Certificaciones
+    </h3>
+    <div class="h-px bg-gradient-to-r from-neon/40 to-transparent flex-1 mb-2"></div>
+    <span class="text-xs text-muted mb-2 font-mono">
+      {{ certs.length }} TOTAL
+    </span>
+  </div>
+
+  <ng-container *ngIf="certs.length > 0; else empty">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 relative">
+      
+      <ng-container *ngFor="let c of (showAll ? certs : certs.slice(0, initialCount))">
+        
+        <div class="group relative flex items-center gap-5 p-5 rounded-xl bg-panel-dark/40 border border-white/5 
+                    hover:border-neon/30 hover:bg-white/5 transition-all duration-300
+                    hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,0,0,0.5)] animate-fadeIn">
+          
+          <a *ngIf="c.url" [href]="c.url" target="_blank" class="absolute inset-0 z-10" aria-label="Ver certificado"></a>
+
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 rounded-full bg-bg-dark border border-white/10 flex items-center justify-center overflow-hidden p-2 group-hover:border-neon/40 transition-colors">
+              <img *ngIf="c.logo" [src]="c.logo" [alt]="c.org" class="w-full h-full object-contain" />
+              <span *ngIf="!c.logo" class="text-xl font-bold text-neon font-display">
+                {{ c.org?.charAt(0) || 'C' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="flex-1 min-w-0 flex flex-col justify-center">
+            <h4 class="text-base font-bold text-white leading-tight group-hover:text-neon transition-colors pr-6">
+              {{ c.name }}
+            </h4>
+            <p class="text-xs text-muted mt-1 uppercase tracking-wider font-mono flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-neon/50"></span>
+              {{ c.org }}
+            </p>
+          </div>
+
+          <div *ngIf="c.url" class="absolute top-4 right-4 text-gray-600 group-hover:text-neon transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div *ngIf="certs.length > initialCount" class="mt-8 flex justify-center">
+      <button (click)="toggleShowAll()" 
+              class="group flex items-center gap-2 px-6 py-2 rounded-full border border-gray-700 hover:border-neon text-gray-300 hover:text-neon text-sm transition-all duration-300">
+        
+        <span>{{ showAll ? 'Mostrar menos' : 'Ver todos (' + certs.length + ')' }}</span>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-4 w-4 transition-transform duration-300"
+             [class.rotate-180]="showAll"
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+    </div>
+
+  </ng-container>
+
+  <ng-template #empty>
+    <div class="flex flex-col items-center justify-center py-12 border border-dashed border-gray-800 rounded-xl bg-white/5">
+      <span class="text-4xl mb-3 opacity-20">📜</span>
+      <p class="text-muted text-sm">No certifications available.</p>
+    </div>
+  </ng-template>
+
+</section>

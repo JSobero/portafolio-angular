@@ -1,0 +1,70 @@
+<section class="w-full relative">
+  
+  <div class="flex items-end gap-4 mb-8">
+    <h3 class="text-2xl font-display font-bold text-white tracking-wide">
+      Skills & Stack
+    </h3>
+    <div class="h-px bg-gradient-to-r from-neon/40 to-transparent flex-1 mb-2"></div>
+    <span class="text-xs text-muted mb-2 font-mono">
+      {{ skills.length }} TECHS
+    </span>
+  </div>
+
+  <div class="relative">
+    
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      
+      <ng-container *ngFor="let s of (showAll ? skills : skills.slice(0, initialCount))">
+        
+        <div class="group relative p-3 md:p-4 rounded-xl bg-panel-dark/40 border border-white/5 
+                    hover:border-neon/40 hover:bg-white/5 transition-all duration-300 
+                    hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,255,122,0.1)]
+                    flex items-center gap-3 md:gap-4 select-none animate-fadeIn">
+          
+          <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-black/40 group-hover:bg-black transition-colors border border-white/5 group-hover:border-neon/20">
+            
+            <img *ngIf="s.icon && s.icon.startsWith('assets/')" 
+                 [src]="s.icon" [alt]="s.name" 
+                 class="w-6 h-6 object-contain opacity-70 group-hover:opacity-100 transition-all grayscale group-hover:grayscale-0" />
+            
+            <span *ngIf="s.icon && !s.icon.startsWith('assets/')" 
+                  class="iconify text-gray-400 group-hover:text-neon transition-colors duration-300" 
+                  [attr.data-icon]="s.icon" 
+                  data-inline="true" 
+                  style="font-size:24px;"></span>
+                  
+            <span *ngIf="!s.icon" class="text-gray-500 text-lg">⚡</span>
+          </div>
+
+          <div class="flex-1 min-w-0">
+            <h4 class="text-sm font-medium text-gray-300 group-hover:text-white truncate transition-colors">
+              {{ s.name }}
+            </h4>
+          </div>
+
+        </div>
+      </ng-container>
+    </div>
+
+    <div *ngIf="!showAll && skills.length > initialCount" 
+         class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent pointer-events-none">
+    </div>
+
+  </div>
+
+  <div *ngIf="skills.length > initialCount" class="mt-8 flex justify-center">
+    <button (click)="toggleShowAll()" 
+            class="group flex items-center gap-2 px-6 py-2 rounded-full border border-gray-700 hover:border-neon text-gray-300 hover:text-neon text-sm transition-all">
+      
+      <span>{{ showAll ? 'Mostrar menos' : 'Ver todas las habilidades' }}</span>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" 
+           class="h-4 w-4 transition-transform duration-300"
+           [class.rotate-180]="showAll"
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+  </div>
+
+</section>

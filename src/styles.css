@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    @apply bg-bg-dark text-white font-sans;
+}
+
+.neon-outline {
+    border: 1.5px solid rgba(0,255,122,0.18);
+    box-shadow: 0 0 0 2px rgba(0, 255, 122, 0.02);
+}
+
+/* Project-specific helpers */
+.project-featured {
+    @apply neon-outline rounded-xl overflow-hidden relative bg-black;
+}
+.project-featured img {
+    @apply w-full h-64 md:h-80 object-cover;
+}
+.project-featured .overlay {
+    background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.72) 70%);
+}
+
+.project-small {
+    @apply neon-outline rounded-lg overflow-hidden bg-black;
+}
+.project-small img {
+    @apply w-full h-28 object-cover;
+}
+
+.chip {
+    @apply text-xs px-2 py-1 rounded-md border border-gray-700;
+}
+
+/* Clase base para tarjetas */
+.card-base {
+    @apply bg-panel-dark/40 border border-white/5 rounded-xl transition-all duration-300;
+}
+
+/* Efecto al pasar el mouse */
+.card-base:hover {
+    @apply border-neon/50 -translate-y-1 shadow-[0_0_20px_rgba(0,255,122,0.1)];
+}
